@@ -50,15 +50,15 @@ def parse_command_line_arguments() -> Tuple[int, int, int, str, int]:
         args.first_data_timestamp,
         args.data_interval,
         args.file_path,
-        args.column_nums
+        args.num_columns
     )
 
 
 def create_file_content(
-    num_records: int, first_data_timestamp: int, data_interval: int, column_nums: int
+    num_records: int, first_data_timestamp: int, data_interval: int, num_columns: int
 ) -> Tuple[List[str], List[Dict[str, int]]]:
     """Returns the field names and field values."""
-    field_names = [f"col_{idx}" for idx in range(column_nums - 1)]
+    field_names = [f"col_{idx}" for idx in range(num_columns - 1)]
 
     def _create_dict(idx: int):
         ret_val = {
@@ -95,11 +95,11 @@ def main():
         first_data_timestamp,
         data_interval,
         file_path,
-        column_nums
+        num_columns
     ) = parse_command_line_arguments()
 
     field_names, field_values = create_file_content(
-        num_records, first_data_timestamp, data_interval, column_nums
+        num_records, first_data_timestamp, data_interval, num_columns
     )
 
     write_csv(file_path, field_names, field_values)
@@ -107,4 +107,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
